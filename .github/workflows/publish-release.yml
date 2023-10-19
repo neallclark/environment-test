@@ -1,0 +1,17 @@
+name: publish-release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        required: true
+  
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: publish release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release edit ${{ inputs.version }} --draft=false
