@@ -5,6 +5,9 @@ on:
       version:
         type: string
         required: true
+
+permissions:
+  contents: write
   
 jobs:
   create-release:
