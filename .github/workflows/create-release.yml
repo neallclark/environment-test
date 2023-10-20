@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}   # checkout the correct branch name
+          fetch-depth: 0                # fetch the whole repo history      
 
       - name: Get Next Version
         id: version
@@ -18,7 +21,7 @@ jobs:
           # The name of the release branch
           release-branch: main
           log-paths: ./
-          #prefix: ''
+          prefix: ''
         
       - name: Create draft release
         env:
