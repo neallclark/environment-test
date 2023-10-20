@@ -1,10 +1,6 @@
 name: create-release
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        type: string
-        required: true
 
 permissions:
   contents: write
@@ -14,8 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run a one-line script
+
+      - name: Get Next Version
+        id: version
+        uses: codacy/git-version@2.4.0
+        with:
+          # The name of the release branch
+          release-branch: main
+          log-paths: ./
+          prefix: ''
+        
+      - name: Create draft release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create ${{ inputs.version }} --draft
+        run: gh release create ${{ steps.version.outputs.version }} --draft --generate-notes --target main
 
