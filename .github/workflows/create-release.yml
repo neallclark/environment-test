@@ -18,7 +18,7 @@ jobs:
           # The name of the release branch
           release-branch: main
           log-paths: ./
-          prefix: ''
+          #prefix: ''
         
       - name: Create draft release
         env:
